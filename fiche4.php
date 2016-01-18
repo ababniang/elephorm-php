@@ -1,11 +1,11 @@
 <?php 
 require_once("connextionMysql.inc.php");
 
-  $requete = "SELECT * FROM articles WHERE reference='MIC86' ";
+  $requete = "SELECT a.reference, a.prix, a.description, a.photo, f.intitule FROM articles AS a, familles AS f WHERE reference='".$_GET['reference']."' AND a.familleID=f.ID ";
 
-  $resultat = mysql_query($requete);
+  $resultat = $connexion->query($requete);
 
-  $articles = mysql_fetch_array($resultat);
+  $articles=mysqli_fetch_array($resultat);
 
 ?>
 
@@ -40,30 +40,33 @@ require_once("connextionMysql.inc.php");
 
     <div class="container">
 
+     <?php 
+     // echo "<pre><p>";
+     // print_r($articles);
+    // echo "</pre></p>";
+       ?>
        <div class="col-xs-5">
          <table class='table text-center table-bordered table-striped'>
           <tr>
             <td>Référence</td>
             <td><?php echo $articles['reference']; ?></td>
           </tr>
-
           <tr>
             <td>Prix</td>
             <td><?php echo $articles['prix']; ?></td>
           </tr>
-
           <tr>
             <td>Description</td>
             <td><?php echo $articles['description']; ?></td>
           </tr>
-
           <tr>
             <td>Famille</td>
-            <td><?php echo $articles['familleID']; ?></td>
+            <td><?php echo $articles['intitule']; ?></td>
           </tr>
-
-        
-         
+          <tr>
+            <td>Photo</td>
+            <td><img src="images/<?php echo $articles['photo']; ?>" alt=""></td>
+          </tr>
 
          </table>
        </div>

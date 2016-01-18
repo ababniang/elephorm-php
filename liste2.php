@@ -3,7 +3,7 @@ require_once("connextionMysql.inc.php");
 
   $requete = "SELECT reference, prix FROM articles";
 
-$resultat = $connexion->query($requete);
+  $resultat = mysql_query($requete);
 
 
 ?>
@@ -51,14 +51,15 @@ $resultat = $connexion->query($requete);
             <td>Prix</td>
             <td>Voir la fiche</td>
           </tr>
-           <?php while ($articles=mysqli_fetch_array($resultat)) {  ?>
-             
-          <tr>
-            <td><?php echo $articles["reference"]; ?></td>
-            <td><?php echo $articles["prix"]; ?></td>        
-            <td><a href="fiche2.php?reference=<?php echo $articles['reference']; ?>">Voir</a></td>        
-          </tr>
-         <?php } ?>
+
+          <?php while ($articles= mysql_fetch_array($resultat)) { ?>
+            <tr>
+              <td><?php echo $articles['reference']; ?></td>
+              <td><?php echo $articles['prix']; ?></td>
+              <td><a href="fiche2.php?reference=<?php echo $articles['reference']; ?>">Lien</a></td>
+            </tr>
+          <?php } ?>
+
 
          </table>
        </div>

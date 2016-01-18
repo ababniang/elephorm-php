@@ -1,11 +1,10 @@
 <?php 
 require_once("connextionMysql.inc.php");
 
-  $requete = "SELECT * FROM articles WHERE reference='MIC86' ";
+  $requete = "SELECT reference, prix FROM articles";
 
   $resultat = mysql_query($requete);
 
-  $articles = mysql_fetch_array($resultat);
 
 ?>
 
@@ -40,30 +39,45 @@ require_once("connextionMysql.inc.php");
 
     <div class="container">
 
+     <?php 
+      //echo "<pre><p>";
+      //print_r($articles);
+     //echo "</pre></p>";
+       ?>
        <div class="col-xs-5">
+
+       <form id="monform" name="form1" method="post" action="">
+          <p>
+            <label>Nom :
+              <input type="text" name="nom"  />
+            </label>
+          </p>
+          <p>
+            <label>Prénom :
+              <input type="text" name="prenom"  />
+            </label>
+          </p>
+          <p>
+            <label>
+              <input type="submit" name="bouton"  value="Envoyer" />
+            </label>
+          </p>
+        </form>
          <table class='table text-center table-bordered table-striped'>
           <tr>
             <td>Référence</td>
-            <td><?php echo $articles['reference']; ?></td>
-          </tr>
-
-          <tr>
             <td>Prix</td>
-            <td><?php echo $articles['prix']; ?></td>
+            <td>Voir la fiche</td>
           </tr>
 
-          <tr>
-            <td>Description</td>
-            <td><?php echo $articles['description']; ?></td>
-          </tr>
+          <?php while ($articles= mysql_fetch_array($resultat)) { ?>
+            <tr>
+              <td><?php echo $articles['reference']; ?></td>
+              <td><?php echo $articles['prix']; ?></td>
+              <td><a href="fiche3.php?reference=<?php echo $articles['reference']; ?>">Lien</a></td>
+            </tr>
+          <?php } ?>
 
-          <tr>
-            <td>Famille</td>
-            <td><?php echo $articles['familleID']; ?></td>
-          </tr>
-
-        
-         
 
          </table>
        </div>

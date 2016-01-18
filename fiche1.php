@@ -2,10 +2,10 @@
 require_once("connextionMysql.inc.php");
 
   $requete = "SELECT * FROM articles WHERE reference='GIB78' ";
-  
-  $resultat = $connexion->query($requete);
 
-  $articles=mysqli_fetch_array($resultat);
+  $resultat = mysql_query($requete);
+
+  $articles=mysql_fetch_array($resultat)
 
 ?>
 

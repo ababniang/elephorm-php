@@ -1,12 +1,13 @@
 <?php 
-
 require_once("connextionMysql.inc.php");
 
   $requete = "SELECT reference, prix FROM articles";
-  $resultat = $connexion->query($requete);
-  //$resultat = mysql_query($requete);
+
+  $resultat = mysql_query($requete);
+
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,10 +41,10 @@ require_once("connextionMysql.inc.php");
 
       <?php 
 
-        $articles = mysqli_fetch_array($resultat);
+        $articles=mysql_fetch_array($resultat);
 
-        echo "<p>"."Votre référence est ".$articles['reference'];
-        echo " et son prix est de ".$articles['prix']."</p>";
+        echo "Votre référence est ".$articles['reference'];
+        echo " et son prix est de ".$articles['prix'];
 
 
           echo "<pre><p>";

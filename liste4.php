@@ -1,11 +1,15 @@
 <?php 
 require_once("connextionMysql.inc.php");
 
-  $requete = "SELECT * FROM articles WHERE reference='MIC86' ";
 
-  $resultat = mysql_query($requete);
+if (isset($_GET['cle'])) {
+   $requete = "SELECT reference, prix FROM articles WHERE description LIKE'%".$_GET['cle']."%'  ";
+}
 
-  $articles = mysql_fetch_array($resultat);
+ else $requete = "SELECT reference, prix FROM articles";
+
+$resultat = $connexion->query($requete);
+
 
 ?>
 
@@ -40,30 +44,50 @@ require_once("connextionMysql.inc.php");
 
     <div class="container">
 
+     <?php 
+      //echo "<pre><p>";
+      //print_r($articles);
+     //echo "</pre></p>";
+       ?>
        <div class="col-xs-5">
+
+
+       <form id="monform" name="form1" class="clearfix row" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+
+        <!-- Text input-->
+        <div class="form-group clearfix">
+          <label class="col-md-12 control-label" for="textinput">Recherche d'article</label>  
+          <div class="col-md-12 clearfix">
+          <input id="textinput" name="cle" type="text" value="<?php if (isset($_GET['cle'])) echo $_GET['cle']; ?>" placeholder="Mot recherché" class="form-control input-md"> 
+          </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group clearfix">
+          <div class="col-md-12">
+            <button id="singlebutton" type="submit" name="submit" class="btn btn-primary">Envoyer</button>
+          </div>
+        </div>
+
+        <br />
+
+        </form>
+
          <table class='table text-center table-bordered table-striped'>
           <tr>
             <td>Référence</td>
-            <td><?php echo $articles['reference']; ?></td>
-          </tr>
-
-          <tr>
             <td>Prix</td>
-            <td><?php echo $articles['prix']; ?></td>
+            <td>Voir la fiche</td>
           </tr>
 
-          <tr>
-            <td>Description</td>
-            <td><?php echo $articles['description']; ?></td>
-          </tr>
+          <?php while ($articles= mysqli_fetch_array($resultat)) { ?>
+            <tr>
+              <td><?php echo $articles['reference']; ?></td>
+              <td><?php echo $articles['prix']; ?></td>
+              <td><a href="fiche4.php?reference=<?php echo $articles['reference']; ?>">Lien</a></td>
+            </tr>
+          <?php } ?>
 
-          <tr>
-            <td>Famille</td>
-            <td><?php echo $articles['familleID']; ?></td>
-          </tr>
-
-        
-         
 
          </table>
        </div>
